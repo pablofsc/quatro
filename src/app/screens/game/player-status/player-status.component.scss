@@ -1,0 +1,20 @@
+:host {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  flex: 1;
+}
+
+div {
+  display: flex;
+  flex: 1;
+  height: 100%;
+  justify-content: center;
+  align-items: end;
+}
+
+.last-action {
+  display: flex;
+  align-items: center;
+}

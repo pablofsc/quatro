@@ -1,0 +1,47 @@
+<div class="table">
+  <app-back-button>
+
+  </app-back-button>
+
+  <div class="hand">
+    <div *ngFor="let card of state.hands['player2']">
+      <game-card [input]="card" [isFaceUp]="false"></game-card>
+    </div>
+  </div>
+
+  <!-- <app-player-status /> -->
+
+  <div class="stacksContainer">
+    <div class="stack" style="left: -75px;">
+      <div *ngFor="let card of state.drawStack.slice(0, 10)">
+        <game-card class="stackedCard" [input]="card" [isFaceUp]="false" (click)="clickedDraw()"></game-card>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div *ngFor="let card of state.playedStack, let i = index">
+        <game-card class="stackedCard" [input]="card" [isFaceUp]="true" [rotation]="playedStackRotation[i]"></game-card>
+      </div>
+    </div>
+
+    <div class="action">
+      <button (click)="clickedSkip()" [disabled]="!humanCanSkip">SKIP</button>
+    </div>
+  </div>
+
+  <!-- <app-player-status /> -->
+
+  <div *ngIf="!wildCardSelected" class="scrollable-x" appHorizontalScroll>
+    <div class="hand" [ngClass]="{'black-and-white': state.currentTurn.player !== humanId}">
+      <div *ngFor="let card of state.hands['player1'], let i = index">
+        <game-card [input]="card" [isFaceUp]="true" (click)="clickedCard(i)"></game-card>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="wildCardSelected" class="scrollable-x" appHorizontalScroll>
+    <div class="hand">
+      <game-wild-selector [originalWildCard]="wildCardSelected" (selectedColor)="selectedWildColor($event)"></game-wild-selector>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,5 @@
+<div class="hand">
+  <div *ngFor="let card of potentialWildCards, let i = index">
+    <game-card [input]="card" [isFaceUp]="true" (click)="cardClicked(i)"></game-card>
+  </div>
+</div>

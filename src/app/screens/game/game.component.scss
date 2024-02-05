@@ -1,0 +1,55 @@
+.table {
+  width: 100vw;
+  height: 100vh;
+  background-color: #292929;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.scrollable-x {
+  overflow-x: scroll;
+  max-width: 100vw;
+}
+
+.hand {
+  display: flex;
+  justify-content: space-evenly;
+  min-width: fit-content;
+}
+
+.hand>*:not(:first-child) {
+  margin-left: -100px;
+}
+
+.stacksContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.stacksContainer>* {
+  width: 150px;
+  height: 200px;
+}
+
+.stack {
+  position: relative;
+}
+
+.action {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.stackedCard {
+  position: absolute;
+  height: fit-content;
+}
+
+.black-and-white {
+  filter: grayscale(100%);
+}
