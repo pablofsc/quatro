@@ -1,0 +1,111 @@
+{
+  "playerHandSize": 9,
+  "colors": {
+    "red": "#CC0000",
+    "blue": "#0095FF",
+    "green": "#00CC00",
+    "yellow": "#F5F500"
+  },
+  "types": [
+    {
+      "name": "0",
+      "nonWild": true,
+      "count": 1,
+      "canStartGame": true
+    },
+    {
+      "name": "1",
+      "nonWild": true,
+      "count": 2,
+      "canStartGame": true
+    },
+    {
+      "name": "2",
+      "nonWild": true,
+      "count": 2,
+      "canStartGame": true
+    },
+    {
+      "name": "3",
+      "nonWild": true,
+      "count": 2,
+      "canStartGame": true
+    },
+    {
+      "name": "4",
+      "nonWild": true,
+      "count": 2,
+      "canStartGame": true
+    },
+    {
+      "name": "5",
+      "nonWild": true,
+      "count": 2,
+      "canStartGame": true
+    },
+    {
+      "name": "6",
+      "nonWild": true,
+      "count": 2,
+      "canStartGame": true
+    },
+    {
+      "name": "7",
+      "nonWild": true,
+      "count": 2,
+      "canStartGame": true
+    },
+    {
+      "name": "8",
+      "nonWild": true,
+      "count": 2,
+      "canStartGame": true
+    },
+    {
+      "name": "9",
+      "nonWild": true,
+      "count": 2,
+      "canStartGame": true
+    },
+    {
+      "name": "SKIP",
+      "nonWild": true,
+      "count": 2,
+      "canStartGame": false,
+      "symbol": "",
+      "text": "S"
+    },
+    {
+      "name": "DRAW2",
+      "nonWild": true,
+      "count": 2,
+      "canStartGame": false,
+      "symbol": "",
+      "text": "+2"
+    },
+    {
+      "name": "REVERSE",
+      "nonWild": true,
+      "count": 2,
+      "canStartGame": false,
+      "symbol": "",
+      "text": "R"
+    },
+    {
+      "name": "WILD",
+      "nonWild": false,
+      "count": 4,
+      "canStartGame": false,
+      "symbol": "",
+      "text": "?"
+    },
+    {
+      "name": "WILD_DRAW4",
+      "nonWild": false,
+      "count": 4,
+      "canStartGame": false,
+      "symbol": "",
+      "text": "+4"
+    }
+  ]
+}
