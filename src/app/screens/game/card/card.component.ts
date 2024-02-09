@@ -21,6 +21,7 @@ export class CardComponent implements OnChanges {
   @Input() public isFaceUp: boolean = false;
   @Input() public rotation: number = 0;
   @Input() public position: { x: number, y: number; } = { x: 0, y: 0 };
+  @Input() public playable: boolean = false;
 
   public display: CardDisplay | undefined;
 
@@ -29,8 +30,10 @@ export class CardComponent implements OnChanges {
       this.display = {
         symbol: this.input.type.text || this.input.type.name, // TODO: Fix type
         color: this.input.color ? this.deckService.deckInfo?.colors[this.input.color] || 'black' : 'black', // TODO: Improve this
-        class: this.input?.color ? `card` : 'card wild-card'
+        class: `${this.input?.color ? `card` : 'card wild-card'} ${this.playable ? 'playable' : ''}`
       };
+
+      if (this.display.class.includes('playable')) console.log(this.display.class)
     }
     else {
       console.error(this.input);

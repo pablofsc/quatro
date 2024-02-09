@@ -17,6 +17,7 @@ else {
 export interface Card {
   type: CardType;
   color: string | null; // TODO: improve this type
+  playable?: boolean;
 }
 
 interface DeckInfo {

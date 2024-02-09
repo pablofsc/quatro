@@ -48,3 +48,11 @@
 .big-symbol {
   font-size: 4rem;
 }
+
+.playable {
+  transition: transform 0.1s ease !important;
+}
+
+.playable:hover {
+  transform: translateY(-30px) !important;
+}

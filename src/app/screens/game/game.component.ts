@@ -29,12 +29,15 @@ export class GameComponent {
   public wildCardColorPromiseResolver?: (value: string) => void;
 
   public humanCanSkip = false;
+  public playableCards: number[] = [];
 
   private async start() {
     await this.game.startGame(2);
+    this.next();
   }
 
   public async next() {
+    this.resetPlayableCards();
     this.humanCanSkip = false;
 
     if (this.game.state.winner !== null) {
@@ -61,6 +64,8 @@ export class GameComponent {
       this.next();
     }
     else {
+      this.updatePlayableCards();
+      console.log('WAITING FOR INPUT')
       // Await for human player
     }
   }
@@ -105,6 +110,8 @@ export class GameComponent {
       });
 
       this.wildCardSelected = undefined;
+
+      this.next();
     }
 
     if (this.game.state.currentTurn.player === this.humanId) {
@@ -120,6 +127,9 @@ export class GameComponent {
 
       this.humanCanSkip = true;
     }
+
+    this.resetPlayableCards();
+    this.updatePlayableCards();
   }
 
   public clickedSkip() {
@@ -128,5 +138,17 @@ export class GameComponent {
     }
 
     this.next();
+  }
+
+  public updatePlayableCards() {
+    this.playableCards = this.game.getPlayableCards(this.humanId); // TODO: Make this dynamic
+
+    console.log("updated playable cards", this.playableCards);
+  }
+
+  public resetPlayableCards() {
+    this.playableCards = [];
+
+    console.log("reset playable cards", this.playableCards);
   }
 }

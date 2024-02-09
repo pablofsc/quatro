@@ -40,7 +40,7 @@
   <div *ngIf="!wildCardSelected" class="scrollable-x" appHorizontalScroll>
     <div class="hand" [ngClass]="{'black-and-white': state.currentTurn.player !== humanId}">
       <div *ngFor="let card of state.hands['player1'], let i = index">
-        <game-card [input]="card" [isFaceUp]="true" (click)="clickedCard(i)"></game-card>
+        <game-card [input]="card" [isFaceUp]="true" (click)="clickedCard(i)" [playable]="playableCards.includes(i)"></game-card>
       </div>
     </div>
   </div>
