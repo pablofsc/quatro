@@ -37,6 +37,8 @@ export class GameComponent {
     this.humanCanSkip = false;
 
     if (this.game.state.winner !== null) {
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
       if (this.game.state.winner === this.humanId) {
         console.log('You win!');
         alert('You win!');

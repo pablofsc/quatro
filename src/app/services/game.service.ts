@@ -272,8 +272,6 @@ export class GameService {
       if (this.state.hands[player].length === 0) { // TODO: lock game
         this.state.winner = player;
         console.log("Winner:", player);
-
-        return;
       }
     }
 
