@@ -20,7 +20,13 @@
 
     <div class="stack">
       <div *ngFor="let card of state.playedStack, let i = index">
-        <game-card class="stackedCard" [input]="card" [isFaceUp]="true" [rotation]="playedStackRotation[i]"></game-card>
+        <game-card
+          class="stackedCard"
+          [input]="card"
+          [isFaceUp]="true"
+          [rotation]="playedStackRotation[i]"
+          [position]="playedStackPosition[i]">
+        </game-card>
       </div>
     </div>
 

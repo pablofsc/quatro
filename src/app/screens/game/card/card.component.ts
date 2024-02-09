@@ -20,6 +20,7 @@ export class CardComponent implements OnChanges {
   @Input() public input: Card | undefined;
   @Input() public isFaceUp: boolean = false;
   @Input() public rotation: number = 0;
+  @Input() public position: { x: number, y: number; } = { x: 0, y: 0 };
 
   public display: CardDisplay | undefined;
 

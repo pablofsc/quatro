@@ -24,6 +24,7 @@ export class GameComponent {
 
   public state = this.game.state;
   public playedStackRotation: number[] = [0];
+  public playedStackPosition: { x: number, y: number; }[] = [{ x: 0, y: 0 }];
   public wildCardSelected?: Card;
   public wildCardColorPromiseResolver?: (value: string) => void;
 
@@ -67,8 +68,14 @@ export class GameComponent {
   public play(player: string, cardIndex: number, wildCardColor?: string) {
     const nextPlayer = this.game.playCard(player, cardIndex, wildCardColor); // TODO: Make this dynamic
 
-    const randomAngle = randomNumber(-90, 90);
+    const randomAngle = randomNumber(-45, 45);
     this.playedStackRotation.push(randomAngle);
+
+    const randomOffset = {
+      x: randomNumber(-20, 20),
+      y: randomNumber(-20, 20)
+    };
+    this.playedStackPosition.push(randomOffset);
 
     if (this.playedStackRotation.length != this.game.state.playedStack.length) {
       throw new Error('Rotation and played stack length mismatch');
