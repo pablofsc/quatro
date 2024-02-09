@@ -47,6 +47,8 @@ export class GameComponent {
       }
 
       this.screens.current = 'menu';
+
+      return;
     }
 
     if (this.game.state.currentTurn.player === this.computerId) {

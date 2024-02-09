@@ -44,10 +44,7 @@ export class GameService {
   }
 
   public async startGame(playerCount: number): Promise<void> {
-    this.state.drawStack = [];
-    this.state.playedStack = [];
-    this.state.hands = {};
-    this.state.playerCount = playerCount;
+    this.resetState();
 
     const deck = await this.deckService.getShuffledDeck();
 
@@ -289,5 +286,21 @@ export class GameService {
       playedPromise: promise,
       playedResolver: resolver
     };
+  }
+
+  private resetState() {
+    this.state.drawStack = [];
+    this.state.playedStack = [];
+    this.state.hands = {};
+    this.state.playerCount = 2;
+    this.state.playerOrderReversed = false;
+    this.state.currentTurn = {
+      player: undefined,
+      playerHasDrawn: false,
+      playedPromise: null,
+      playedResolver: <(() => void) | null>null
+    };
+    this.state.history = [];
+    this.state.winner = null;
   }
 }
