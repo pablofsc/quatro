@@ -17,26 +17,16 @@ export class AiService {
   }
 
   public async play(computerId: string, play: (player: string, cardIndex: number, wildCardColor?: string) => string | undefined) { // TODO: Improve AI
-    const possibilities = this.game.getPossibilities(computerId);
+    const playableCards = this.game.getPlayableCards(computerId);
 
-    const randomIndex = this.getRandomIndex(possibilities);
+    const randomIndex = this.getRandomIndex(playableCards);
 
-    const pickedCardIndex = possibilities[randomIndex];
+    const pickedCardIndex = playableCards[randomIndex];
 
     if (pickedCardIndex != undefined) {
-      console.log("AI wants to play:", pickedCardIndex, printCard(this.game.state.hands[computerId][pickedCardIndex]));
+      // console.log("AI wants to play:", pickedCardIndex, printCard(this.game.state.hands[computerId][pickedCardIndex]));
 
-
-      if (this.game.state.hands[computerId][pickedCardIndex].type.nonWild) {
-        console.log("AI is playing a regular card");
-
-        this.playRegularCard(computerId, pickedCardIndex, play);
-      }
-      else {
-        console.log("AI is playing a wild card");
-
-        this.playWildCard(computerId, pickedCardIndex, play);
-      }
+      this.playCard(computerId, pickedCardIndex, play);
     }
     else {
       console.log("AI has to draw a card", pickedCardIndex);
@@ -44,12 +34,12 @@ export class AiService {
       setTimeout(() => {
         this.game.drawCard(computerId);
 
-        const possibilities = this.game.getPossibilities(computerId);
+        const playableCards = this.game.getPlayableCards(computerId);
 
-        if (possibilities.length === 1) {
+        if (playableCards.length === 1) {
           console.log("AI has drawn a card and can play it");
 
-          this.playRegularCard(computerId, possibilities[0], play);
+          this.playCard(computerId, playableCards[0], play)
         }
         else {
           console.log("AI has drawn a card but can't play it");
@@ -60,6 +50,19 @@ export class AiService {
     }
   }
 
+  private playCard(computerId: string, pickedCardIndex: number, play: (player: string, cardIndex: number, wildCardColor?: string) => string | undefined) {
+    if (this.game.state.hands[computerId][pickedCardIndex].type.nonWild) {
+      console.log("AI is playing a regular card");
+
+      this.playRegularCard(computerId, pickedCardIndex, play);
+    }
+    else {
+      console.log("AI is playing a wild card");
+
+      this.playWildCard(computerId, pickedCardIndex, play);
+    }
+  }
+
   private async playRegularCard(computerId: string, pickedCardIndex: number, play: (player: string, cardIndex: number, wildCardColor?: string) => string | undefined) {
     setTimeout(() => { play(computerId, pickedCardIndex); }, this.thinkingTime);
   }
@@ -67,8 +70,6 @@ export class AiService {
   private async playWildCard(computerId: string, pickedCardIndex: number, play: (player: string, cardIndex: number, wildCardColor?: string) => string | undefined) {
     const colors = ['red', 'green', 'blue', 'yellow']; // TODO: get from game service or wherever it's properly defined (deck service?)
     const index = this.getRandomIndex(colors);
-
-    console.log("AI is soon playing a wild card with color", colors[index]);
 
     setTimeout(() => { play(computerId, pickedCardIndex, colors[index]); }, this.thinkingTime);
   }

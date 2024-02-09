@@ -145,7 +145,7 @@ export class GameService {
     console.log(player, 'skipped');
   }
 
-  public getPossibilities(player: string): number[] {
+  public getPlayableCards(player: string): number[] {
     const possibilities: number[] = [];
     const hand = this.state.hands[player];
 
