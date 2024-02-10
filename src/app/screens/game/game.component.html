@@ -19,6 +19,7 @@
           class="stackedCard"
           [input]="card"
           [isFaceUp]="false"
+          [playable]="state.currentTurn.player === humanId"
           (click)="clickedDraw()">
         </game-card>
       </div>

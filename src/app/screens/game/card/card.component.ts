@@ -32,8 +32,6 @@ export class CardComponent implements OnChanges {
         color: this.input.color ? this.deckService.deckInfo?.colors[this.input.color] || 'black' : 'black', // TODO: Improve this
         class: `${this.input?.color ? `card` : 'card wild-card'} ${this.playable ? 'playable' : ''}`
       };
-
-      if (this.display.class.includes('playable')) console.log(this.display.class)
     }
     else {
       console.error(this.input);

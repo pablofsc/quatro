@@ -71,8 +71,19 @@
   height: fit-content;
 }
 
+.drawStackCard {
+  transition: transform 0.1s ease;
+  cursor: pointer;
+}
+
 .drawStackCard:hover {
-  animation: tada 1s ease forwards;
+  transform: translateX(30px);
+}
+
+@media (hover: none) {
+  .drawStackCard:hover {
+    transform: none;
+  }
 }
 
 .black-and-white {
@@ -102,6 +113,8 @@
   transform: rotate(180deg);
   font-size: 30px;
   font-weight: bold;
+
+  transition: transform 0.1s ease;
 }
 
 .skip-button:disabled {
@@ -109,4 +122,8 @@
   color: gray;
   cursor: not-allowed;
   text-decoration: line-through;
+}
+
+.skip-button:enabled:hover {
+  transform: rotate(180deg) translateX(30px);
 }
