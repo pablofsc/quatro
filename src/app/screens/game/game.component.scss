@@ -1,7 +1,9 @@
 .table {
   width: 100vw;
   height: 100vh;
-  background-color: #292929;
+  background-image: url('../../../assets/table-background.png');
+  background-color: gray;
+  background-blend-mode: multiply;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
