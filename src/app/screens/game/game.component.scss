@@ -59,3 +59,32 @@
 .black-and-white {
   filter: grayscale(100%);
 }
+
+.skip-button-container {
+  position: relative;
+  width: 150px;
+  height: 200px;
+}
+
+.skip-button {
+  width: 150px;
+  height: 200px;
+
+  border: 2px dashed white;
+  border-radius: 10px;
+  background-color: transparent;
+  color: white;
+  padding: 10px 20px;
+  cursor: pointer;
+
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.skip-button:disabled {
+  border: 2px dashed gray;
+  color: gray;
+  cursor: not-allowed;
+}
