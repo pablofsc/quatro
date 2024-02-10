@@ -5,7 +5,6 @@ import { CardComponent } from './card/card.component';
 import { BackButtonModule } from 'src/app/components/back-button/back-button.module';
 import { HorizontalScrollDirective } from './directives/horizontal-scroll.directive';
 import { WildSelectorComponent } from './wild-selector/wild-selector.component';
-import { PlayerStatusComponent } from './player-status/player-status.component';
 
 
 
@@ -14,8 +13,7 @@ import { PlayerStatusComponent } from './player-status/player-status.component';
     GameComponent,
     CardComponent,
     HorizontalScrollDirective,
-    WildSelectorComponent,
-    PlayerStatusComponent
+    WildSelectorComponent
   ],
   imports: [
     CommonModule,
