@@ -12,3 +12,11 @@ body,
 html {
   overflow: hidden;
 }
+
+::-webkit-scrollbar {
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #333;
+}
