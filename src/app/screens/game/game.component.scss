@@ -1,3 +1,18 @@
+@keyframes tada {
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: scale(1.1) rotate(3deg);
+  }
+
+  40%,
+  60%,
+  80% {
+    transform: scale(1.1) rotate(-3deg);
+  }
+}
+
 .table {
   width: 100vw;
   height: 100vh;
@@ -54,6 +69,10 @@
 .stackedCard {
   position: absolute;
   height: fit-content;
+}
+
+.drawStackCard:hover {
+  animation: tada 1s ease forwards;
 }
 
 .black-and-white {

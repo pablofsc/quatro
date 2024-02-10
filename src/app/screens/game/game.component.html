@@ -14,7 +14,13 @@
   <div class="stacksContainer">
     <div class="stack" style="left: -75px;">
       <div *ngFor="let card of state.drawStack.slice(0, 10)">
-        <game-card class="stackedCard" [input]="card" [isFaceUp]="false" (click)="clickedDraw()"></game-card>
+        <game-card
+          [class.drawStackCard]="state.currentTurn.player === humanId"
+          class="stackedCard"
+          [input]="card"
+          [isFaceUp]="false"
+          (click)="clickedDraw()">
+        </game-card>
       </div>
     </div>
 
