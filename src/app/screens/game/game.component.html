@@ -9,7 +9,9 @@
     </div>
   </div>
 
-  <!-- <app-player-status /> -->
+  <div class="card-count-indicator player2-card-count">
+    {{ state.hands['player2'].length }}
+  </div>
 
   <div class="stacksContainer">
     <div class="stack" style="left: -75px;">
@@ -42,7 +44,9 @@
     </div>
   </div>
 
-  <!-- <app-player-status /> -->
+  <div class="card-count-indicator player1-card-count">
+    {{ state.hands['player1'].length }}
+  </div>
 
   <div *ngIf="!wildCardSelected" class="scrollable-x" appHorizontalScroll>
     <div class="hand" [ngClass]="{'black-and-white': state.currentTurn.player !== humanId}">

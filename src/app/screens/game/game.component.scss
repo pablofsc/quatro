@@ -127,3 +127,31 @@
 .skip-button:enabled:hover {
   transform: rotate(180deg) translateX(30px);
 }
+
+.card-count-indicator {
+  position: absolute;
+  z-index: 999;
+
+  background-color: rgba(245, 245, 245, 0.8);
+  color: black;
+  border: none;
+  border-radius: 4px;
+  cursor: default;
+
+  width: 35px;
+  height: 35px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.player2-card-count {
+  top: 20px;
+  right: 20px;
+}
+
+.player1-card-count {
+  bottom: 20px;
+  right: 20px;
+}
