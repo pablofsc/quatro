@@ -1,6 +1,7 @@
-@keyframes colorCycle {
+@keyframes combinedAnimation {
   0% {
     background-color: #ff0000;
+    background-position: 0 0;
   }
 
   25% {
@@ -17,11 +18,12 @@
 
   100% {
     background-color: #ff0000;
+    background-position: 100% 100%;
   }
 }
 
 .background-container {
-  animation: moveBackground 60s linear infinite, colorCycle 30s linear infinite;
+  animation: combinedAnimation 60s linear infinite;
   width: 100%;
   height: 100%;
   box-shadow: inset 0 0 100px 25px rgba(0, 0, 0, 0.5);
@@ -29,9 +31,4 @@
   z-index: -1;
   background-image: url('../../../../assets/table-background.png');
   background-blend-mode: multiply;
-}
-
-@keyframes moveBackground {
-  from { background-position: 0 0; }
-  to { background-position: 100% 100%; }
 }
