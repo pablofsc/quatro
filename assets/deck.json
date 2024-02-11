@@ -73,7 +73,8 @@
       "count": 2,
       "canStartGame": false,
       "symbol": "",
-      "text": "S"
+      "text": "S",
+      "description": "The S card makes the next player miss a turn."
     },
     {
       "name": "DRAW2",
@@ -81,7 +82,8 @@
       "count": 2,
       "canStartGame": false,
       "symbol": "",
-      "text": "+2"
+      "text": "+2",
+      "description": "The +2 card makes the next player draw 2 cards."
     },
     {
       "name": "REVERSE",
@@ -89,7 +91,8 @@
       "count": 2,
       "canStartGame": false,
       "symbol": "",
-      "text": "R"
+      "text": "R",
+      "description": "The R card reverses direction of play."
     },
     {
       "name": "WILD",
@@ -97,7 +100,8 @@
       "count": 4,
       "canStartGame": false,
       "symbol": "",
-      "text": "?"
+      "text": "?",
+      "description": "The ? card changes the color at your will."
     },
     {
       "name": "WILD_DRAW4",
@@ -105,7 +109,8 @@
       "count": 4,
       "canStartGame": false,
       "symbol": "",
-      "text": "+4"
+      "text": "+4",
+      "description": "The +4 card changes the color and makes the next player draw 4 cards."
     }
   ]
 }
