@@ -5,6 +5,7 @@ interface CardDisplay {
   symbol: string;
   color: string;
   class: string;
+  tooltip: string | null;
 }
 
 @Component({
@@ -30,7 +31,8 @@ export class CardComponent implements OnChanges {
       this.display = {
         symbol: this.input.type.text || this.input.type.name, // TODO: Fix type
         color: this.input.color ? this.deckService.deckInfo?.colors[this.input.color] || 'black' : 'black', // TODO: Improve this
-        class: `${this.input?.color ? `card` : 'card wild-card'} ${this.playable ? 'playable' : ''}`
+        class: `${this.input?.color ? `card` : 'card wild-card'} ${this.playable ? 'playable' : ''}`,
+        tooltip: this.input.type.description || ''
       };
     }
     else {

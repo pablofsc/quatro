@@ -4,7 +4,8 @@
     *ngIf="isFaceUp"
     [style.background-color]="display?.color"
     [style.transform]="'rotate(' + rotation + 'deg)'"
-    [style.transform]="'translate(' + position.x + 'px, ' + position.y + 'px) rotate(' + rotation + 'deg)'">
+    [style.transform]="'translate(' + position.x + 'px, ' + position.y + 'px) rotate(' + rotation + 'deg)'"
+    [title]="display?.tooltip">
 
     <div class="small-symbol-container">
       <div class="small-symbol">

@@ -33,6 +33,7 @@ interface CardType {
   canStartGame: boolean;
   symbol?: string;
   text?: string;
+  description?: string;
 }
 
 export interface Colors {
