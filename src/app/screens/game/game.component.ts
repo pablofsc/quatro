@@ -127,11 +127,13 @@ export class GameComponent {
   }
 
   public clickedDraw() {
-    if (this.game.state.currentTurn.player === this.humanId) {
-      this.game.drawCard(this.humanId); // TODO: Make this dynamic
-
-      this.humanCanSkip = true;
+    if (this.game.state.currentTurn.player !== this.humanId || this.wildCardSelected) {
+      return;
     }
+
+    this.game.drawCard(this.humanId); // TODO: Make this dynamic
+
+    this.humanCanSkip = true;
 
     this.resetPlayableCards();
     this.updatePlayableCards();

@@ -17,11 +17,11 @@
     <div class="stack" style="left: -75px;">
       <div *ngFor="let card of state.drawStack.slice(0, 10)">
         <game-card
-          [class.drawStackCard]="state.currentTurn.player === humanId"
+          [class.drawStackCard]="state.currentTurn.player === humanId && !wildCardSelected"
           class="stackedCard"
           [input]="card"
           [isFaceUp]="false"
-          [playable]="state.currentTurn.player === humanId"
+          [playable]="state.currentTurn.player === humanId && !wildCardSelected"
           (click)="clickedDraw()">
         </game-card>
       </div>
@@ -40,7 +40,7 @@
     </div>
 
     <div class="action skip-button-container" style="left: +75px;">
-      <button class="skip-button" (click)="clickedSkip()" [disabled]="!humanCanSkip">SKIP</button>
+      <button class="skip-button" (click)="clickedSkip()" [disabled]="!humanCanSkip || wildCardSelected">SKIP</button>
     </div>
   </div>
 
@@ -53,7 +53,7 @@
       <game-wild-selector [originalWildCard]="wildCardSelected" (selectedColor)="selectedWildColor($event)"></game-wild-selector>
     </div>
   </div>
-  
+
   <div [class.retracted]="wildCardSelected" class="scrollable-x" appHorizontalScroll>
     <div class="hand" [ngClass]="{'black-and-white': state.currentTurn.player !== humanId}">
       <div *ngFor="let card of state.hands['player1'], let i = index">
