@@ -217,14 +217,13 @@ export class GameService {
     }
   }
 
-  private handlePossibleAction(card: Card, player: string): PlayerCode {
+  private handlePossibleAction(card: Card, player: string, delay: boolean = true): PlayerCode {
     const nextPlayer = this.getNextPlayer();
 
     switch (card.type.name) {
       case "DRAW2":
         console.log("DRAW2: Drawing two cards for", nextPlayer);
-        this.drawCard(nextPlayer, true);
-        this.drawCard(nextPlayer, true);
+        this.drawCardsForPlayer(nextPlayer, 2, 250)
 
         return nextPlayer;
 
@@ -246,15 +245,29 @@ export class GameService {
 
       case "WILD_DRAW4":
         console.log("WILD_DRAW4: Wild draw 4 card, drawing four cards for next player:", nextPlayer);
-        this.drawCard(nextPlayer, true);
-        this.drawCard(nextPlayer, true);
-        this.drawCard(nextPlayer, true);
-        this.drawCard(nextPlayer, true);
+        this.drawCardsForPlayer(nextPlayer, 4, 250)
 
         return nextPlayer;
 
       default:
         return nextPlayer;
+    }
+  }
+
+  private async drawCardsForPlayer(player: string, amount: number, delay: number | null) { // TODO: not ideal to have delay stuff here
+    const delayFunction = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
+    if (delay != null) {
+      for (let i = 0; i < amount; i++) {
+        this.drawCard(player, true);
+
+        await delayFunction(delay);
+      }
+    }
+    else {
+      for (let i = 0; i < amount; i++) {
+        this.drawCard(player, true);
+      }
     }
   }
 

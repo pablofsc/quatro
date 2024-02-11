@@ -65,6 +65,11 @@ export class GameComponent {
     }
     else {
       this.updatePlayableCards();
+
+      // TODO: this is to make sure the cards are updated if the other player played a draw card. not ideal, improve in the future
+      setTimeout(() => this.updatePlayableCards(), 500); // for draw +2
+      setTimeout(() => this.updatePlayableCards(), 1000); // for draw +4
+
       console.log('WAITING FOR INPUT')
       // Await for human player
     }
