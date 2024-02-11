@@ -31,4 +31,8 @@ export class WildSelectorComponent implements OnChanges {
 
     this.selectedColor.emit(color);
   }
+
+  public clickedBack() {
+    this.selectedColor.emit(undefined);
+  }
 }

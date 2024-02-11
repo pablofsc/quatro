@@ -1,4 +1,8 @@
-<div class="hand">
+<div class="pseudo-hand">
+  <div class="back-button-container">
+    <button class="back-button" (click)="clickedBack()">BACK</button>
+  </div>
+
   <div *ngFor="let card of potentialWildCards, let i = index">
     <game-card
       [input]="card"

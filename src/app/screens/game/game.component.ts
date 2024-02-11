@@ -90,6 +90,11 @@ export class GameComponent {
   }
 
   public selectedWildColor(value: string): void {
+    if (value === undefined) {
+      this.wildCardSelected = undefined;
+      this.wildCardColorPromiseResolver = undefined;
+    }
+
     if (!this.wildCardColorPromiseResolver) {
       throw new Error('No wild card color promise resolver');
     }

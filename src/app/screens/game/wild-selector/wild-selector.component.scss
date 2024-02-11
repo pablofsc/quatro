@@ -1,31 +1,61 @@
-.button {
-  padding: 10px 20px;
-  margin: 5px;
-  border: none;
-  cursor: pointer;
+:host {
+  position: fixed; /* or 'absolute' depending on your layout */
+  bottom: 0;
+  left: 0;
+  width: 100%; /* or adjust as needed */
   text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  border-radius: 5px;
+  z-index: 99; /* Ensure it's on top of other elements */
 }
 
-.red {
-  background-color: red;
+.pseudo-hand {
+  display: flex;
+  justify-content: space-evenly;
+  min-width: fit-content;
+  flex-grow: 1;
+  padding-bottom: 100px;
+  animation: slideIn 0.3s ease; /* Adjust duration and timing function as needed */
+}
+
+.pseudo-hand>*:not(:first-child) {
+  margin-left: -100px;
+}
+
+.back-button-container {
+  position: relative;
+  width: 154px;
+  height: 204px;
+}
+
+.back-button {
+  width: 134px;
+  height: 184px;
+
+  margin: 9px;
+  box-sizing: border-box;
+  border: 2px dashed white;
+  border-radius: 10px;
+  background-color: transparent;
   color: white;
+  padding: 10px 20px;
+  cursor: pointer;
+
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 30px;
+  font-weight: bold;
+
+  transition: transform 0.1s ease;
 }
 
-.green {
-  background-color: green;
-  color: white;
+.back-button:hover {
+  transform: rotate(180deg) translateY(30px);
 }
 
-.blue {
-  background-color: blue;
-  color: white;
-}
-
-.yellow {
-  background-color: yellow;
-  color: black;
+@keyframes slideIn {
+  from {
+      transform: translateY(300px);
+  }
+  to {
+      transform: translateY(0);
+  }
 }

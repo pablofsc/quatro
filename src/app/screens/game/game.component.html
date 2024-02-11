@@ -48,17 +48,17 @@
     {{ state.hands['player1'].length }}
   </div>
 
-  <div *ngIf="!wildCardSelected" class="scrollable-x" appHorizontalScroll>
+  <div *ngIf="wildCardSelected" class="scrollable-x" appHorizontalScroll>
+    <div class="hand">
+      <game-wild-selector [originalWildCard]="wildCardSelected" (selectedColor)="selectedWildColor($event)"></game-wild-selector>
+    </div>
+  </div>
+  
+  <div [class.retracted]="wildCardSelected" class="scrollable-x" appHorizontalScroll>
     <div class="hand" [ngClass]="{'black-and-white': state.currentTurn.player !== humanId}">
       <div *ngFor="let card of state.hands['player1'], let i = index">
         <game-card [input]="card" [isFaceUp]="true" (click)="clickedCard(i)" [playable]="playableCards.includes(i)"></game-card>
       </div>
-    </div>
-  </div>
-
-  <div *ngIf="wildCardSelected" class="scrollable-x" appHorizontalScroll>
-    <div class="hand">
-      <game-wild-selector [originalWildCard]="wildCardSelected" (selectedColor)="selectedWildColor($event)"></game-wild-selector>
     </div>
   </div>
 </div>
