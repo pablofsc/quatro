@@ -74,7 +74,7 @@ export class GameComponent {
       setTimeout(() => this.updatePlayableCards(), 500); // for draw +2
       setTimeout(() => this.updatePlayableCards(), 1000); // for draw +4
 
-      console.log('WAITING FOR INPUT')
+      console.log('Waiting for input');
       // Await for human player
     }
   }
@@ -116,7 +116,6 @@ export class GameComponent {
     let selectedColor: string | undefined;
 
     if (this.game.isWildCard(this.humanId, cardIndex)) {
-      console.log('Wild card selected');
       this.wildCardSelected = this.game.getPlayerCardReference(this.humanId, cardIndex);
 
       selectedColor = await new Promise<string>((resolve) => {
@@ -158,13 +157,9 @@ export class GameComponent {
 
   public updatePlayableCards() {
     this.playableCards = this.game.getPlayableCards(this.humanId); // TODO: Make this dynamic
-
-    console.log("updated playable cards", this.playableCards);
   }
 
   public resetPlayableCards() {
     this.playableCards = [];
-
-    console.log("reset playable cards", this.playableCards);
   }
 }
