@@ -1,2 +1,2 @@
-<app-menu [@fadeInOutAnimation] *ngIf="screens.current === 'menu'" (userSelection)="changeState($event)"> </app-menu>
-<app-game [@fadeInOutAnimation] *ngIf="screens.current === 'game'"> </app-game>
+<app-menu class="fade-in" *ngIf="screens.current === 'menu'" (userSelection)="changeState($event)"> </app-menu>
+<app-game *ngIf="screens.current === 'game'"> </app-game>
