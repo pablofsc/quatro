@@ -6,24 +6,24 @@
   </app-back-button>
 
   <div class="hand">
-    <div *ngFor="let card of state.hands['player2']">
+    <div *ngFor="let card of state.hands[opponentId]">
       <game-card [input]="card" [isFaceUp]="false"></game-card>
     </div>
   </div>
 
-  <div class="card-count-indicator player2-card-count">
-    {{ state.hands['player2'].length }}
+  <div class="card-count-indicator opponent-card-count">
+    {{ state.hands[opponentId].length }}
   </div>
 
   <div class="stacksContainer">
     <div class="stack" style="left: -75px;">
       <div *ngFor="let card of state.drawStack.slice(0, 10)">
         <game-card
-          [class.drawStackCard]="state.currentTurn.player === humanId && !wildCardSelected"
+          [class.drawStackCard]="state.currentTurn.player === userId && !wildCardSelected"
           class="stackedCard"
           [input]="card"
           [isFaceUp]="false"
-          [playable]="state.currentTurn.player === humanId && !wildCardSelected"
+          [playable]="state.currentTurn.player === userId && !wildCardSelected"
           (click)="clickedDraw()">
         </game-card>
       </div>
@@ -46,7 +46,7 @@
     </div>
   </div>
 
-  <div class="card-count-indicator player1-card-count">
+  <div class="card-count-indicator user-card-count">
     {{ state.hands['player1'].length }}
   </div>
 
@@ -57,7 +57,7 @@
   </div>
 
   <div [class.retracted]="wildCardSelected" class="scrollable-x" appHorizontalScroll>
-    <div class="hand" [ngClass]="{'black-and-white': state.currentTurn.player !== humanId}">
+    <div class="hand" [ngClass]="{'black-and-white': state.currentTurn.player !== userId}">
       <div *ngFor="let card of state.hands['player1'], let i = index">
         <game-card [input]="card" [isFaceUp]="true" (click)="clickedCard(i)" [playable]="playableCards.includes(i)"></game-card>
       </div>

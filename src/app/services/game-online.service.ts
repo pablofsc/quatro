@@ -1,38 +1,38 @@
-import { Card, DeckClass } from './deck.class';
+import { Injectable } from '@angular/core';
 
-export interface Hands {
-  [key: string]: Hand;
-}
+import { Card, DeckService } from './deck.service';
+import { GameClass, GameState, PlayerCode } from 'src/assets/classes/game.class';
+import { HttpClient } from '@angular/common/http';
 
-export interface Action {
-  player: string;
-  type: 'card' | 'draw' | 'skip';
-  card?: Card; // undefined if type is 'skip'
-}
+export * from 'src/assets/classes/game.class';
 
-export interface GameState {
-  drawStack: Card[],
-  playedStack: Card[],
-  hands: Hands,
-  playerCount: number,
-  playerOrderReversed: boolean,
-  currentTurn: {
-    player: string | undefined,
-    playerHasDrawn: boolean,
-    playedPromise: Promise<void> | null,
-    playedResolver: (() => void) | null;
-  },
-  history: Action[],
-  winner: string | null;
-}
-
-export type Hand = Card[];
-export type PlayerCode = string;
-
-export class GameClass {
+@Injectable({
+  providedIn: 'root'
+})
+export class OnlineGameService {
   constructor(
-    private readonly deck: DeckClass
+    private readonly deck: DeckService,
+    private readonly http: HttpClient
   ) {}
+
+  public joinSession(code: string) {
+    this.http.put('http://localhost:3000/sessions/join', {
+      "playerName": "pablofsc",
+      "sessionId": "BKK5"
+    })
+      .subscribe(data => {
+        console.log(data);
+      });
+  }
+
+  public createSession() {
+    this.http.post('http://localhost:3000/sessions/new', {
+      "playerName": "pablofsc",
+    })
+      .subscribe(data => {
+        console.log(data);
+      });
+  }
 
   public state: GameState = {
     drawStack: [],

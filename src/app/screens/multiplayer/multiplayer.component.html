@@ -1,0 +1,30 @@
+<app-background>
+
+</app-background>
+
+<div class="menu">
+  <div class="block">
+    <div class="option" (click)="selected = 'JOIN'">
+      JOIN AN EXISTING SESSION
+    </div>
+
+    <div class="code-input-wrapper" *ngIf="selected === 'JOIN'">
+      <input type="text">
+      <button (click)="joinSession()">JOIN</button>
+    </div>
+  </div>
+
+  OR
+
+  <div class="option" (click)="selected = 'CREATE'; createSession()">
+    CREATE A NEW SESSION
+  </div>
+
+  <div *ngIf="selected === 'CREATE'">
+    creating session...
+  </div>
+
+  <div class="option" (click)="backToMenu()">
+    back to menu
+  </div>
+</div>

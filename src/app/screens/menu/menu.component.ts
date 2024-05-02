@@ -11,7 +11,11 @@ export class MenuComponent {
 
   @Output() userSelection = new EventEmitter<Screen>();
 
-  startGame() {
-    this.userSelection.emit('game');
+  startLocalGame() {
+    this.userSelection.emit('local_game');
+  }
+
+  openMultiplayerPage() {
+    this.userSelection.emit('multiplayer');
   }
 }
