@@ -8,7 +8,7 @@ import { ScreensService } from 'src/app/services/screens.service';
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
-  styleUrls: ['./game.component.scss']
+  styleUrls: ['./game.component.scss'],
 })
 export class GameComponent {
   constructor(
@@ -18,6 +18,8 @@ export class GameComponent {
   ) {
     this.start();
   }
+
+  public gameReady = false;
 
   public humanId = 'player1'; // TODO: Make these dynamic
   public computerId = 'player2';
@@ -33,7 +35,9 @@ export class GameComponent {
 
   private async start() {
     await this.game.startGame(2);
-    this.next();
+    await this.next();
+
+    this.gameReady = true;
   }
 
   public async next() {

@@ -1,4 +1,6 @@
-<div class="table">
+<div *ngIf="gameReady === false"></div>
+
+<div *ngIf="gameReady === true" class="table">
   <app-back-button>
 
   </app-back-button>
