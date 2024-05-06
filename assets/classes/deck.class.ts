@@ -43,8 +43,6 @@ export class DeckClass {
 
           this.deckInfo = jsonResponse as DeckInfo;
 
-          console.log(jsonResponse);
-
           resolve();
         }
         else if (xhr.readyState === 4 && xhr.status !== 200) {

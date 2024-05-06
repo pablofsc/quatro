@@ -120,7 +120,7 @@ export class GameClass {
 
     const card = this.getFromDrawStack();
 
-    console.log(player, 'drew', card);
+    // console.log(player, 'drew', card);
 
     this.state.currentTurn.playerHasDrawn = true;
 
@@ -138,7 +138,7 @@ export class GameClass {
 
     this.changeCurrentPlayer(this.getNextPlayer());
 
-    console.log(player, 'skipped');
+    // console.log(player, 'skipped');
   }
 
   public getPlayableCards(player: string): number[] {
@@ -218,29 +218,29 @@ export class GameClass {
 
     switch (card.type.name) {
       case "DRAW2":
-        console.log("DRAW2: Drawing two cards for", nextPlayer);
+        // console.log("DRAW2: Drawing two cards for", nextPlayer);
         this.drawCardsForPlayer(nextPlayer, 2, 250);
 
         return nextPlayer;
 
       case "REVERSE":
-        console.log("REVERSE: Reversing order");
+        // console.log("REVERSE: Reversing order");
         this.state.playerOrderReversed = !this.state.playerOrderReversed;
 
         return player; // Same player plays again
 
       case "SKIP":
-        console.log("SKIP: next player does not play:", this.getNextPlayer());
+        // console.log("SKIP: next player does not play:", this.getNextPlayer());
 
         return this.getNextPlayer(true);
 
       case "WILD":
-        console.log("WILD: Wild card, doing nothing");
+        // console.log("WILD: Wild card, doing nothing");
 
         return nextPlayer;
 
       case "WILD_DRAW4":
-        console.log("WILD_DRAW4: Wild draw 4 card, drawing four cards for next player:", nextPlayer);
+        // console.log("WILD_DRAW4: Wild draw 4 card, drawing four cards for next player:", nextPlayer);
         this.drawCardsForPlayer(nextPlayer, 4, 250);
 
         return nextPlayer;
@@ -280,7 +280,7 @@ export class GameClass {
     for (let player in this.state.hands) {
       if (this.state.hands[player].length === 0) { // TODO: lock game
         this.state.winner = player;
-        console.log("Winner:", player);
+        // console.log("Winner:", player);
       }
     }
 

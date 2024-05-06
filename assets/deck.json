@@ -72,9 +72,9 @@
       "nonWild": true,
       "count": 2,
       "canStartGame": false,
-      "symbol": "",
+      "symbol": "🛇",
       "text": "S",
-      "description": "The S card makes the next player miss a turn."
+      "description": "The 🛇 card makes the next player miss a turn."
     },
     {
       "name": "DRAW2",
@@ -90,9 +90,9 @@
       "nonWild": true,
       "count": 2,
       "canStartGame": false,
-      "symbol": "",
+      "symbol": "⮁",
       "text": "R",
-      "description": "The R card reverses direction of play."
+      "description": "The ⮁ card reverses direction of play."
     },
     {
       "name": "WILD",
