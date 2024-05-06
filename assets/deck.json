@@ -72,7 +72,7 @@
       "nonWild": true,
       "count": 2,
       "canStartGame": false,
-      "symbol": "🛇",
+      "symbol": "\uD83D\uDEC7\uFE0F",
       "text": "S",
       "description": "The 🛇 card makes the next player miss a turn."
     },
