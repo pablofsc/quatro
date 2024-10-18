@@ -1,4 +1,3 @@
-
 import { Card, DeckClass } from './deck.class';
 
 export interface Hands {
@@ -11,6 +10,22 @@ export interface Action {
   card?: Card; // undefined if type is 'skip'
 }
 
+export interface GameState {
+  drawStack: Card[],
+  playedStack: Card[],
+  hands: Hands,
+  playerCount: number,
+  playerOrderReversed: boolean,
+  currentTurn: {
+    player: string | undefined,
+    playerHasDrawn: boolean,
+    playedPromise: Promise<void> | null,
+    playedResolver: (() => void) | null;
+  },
+  history: Action[],
+  winner: string | null;
+}
+
 export type Hand = Card[];
 export type PlayerCode = string;
 
@@ -19,20 +34,20 @@ export class GameClass {
     private readonly deck: DeckClass
   ) {}
 
-  public state = {
-    drawStack: <Card[]>[],
-    playedStack: <Card[]>[],
-    hands: <Hands>{},
+  public state: GameState = {
+    drawStack: [],
+    playedStack: [],
+    hands: {},
     playerCount: 2,
-    playerOrderReversed: <boolean>false,
+    playerOrderReversed: false,
     currentTurn: {
-      player: <string | undefined>undefined,
+      player: undefined,
       playerHasDrawn: false,
-      playedPromise: <Promise<void> | null>null,
-      playedResolver: <(() => void) | null>null
+      playedPromise: null,
+      playedResolver: null
     },
-    history: <Action[]>[],
-    winner: <string | null>null
+    history: [],
+    winner: null
   };
 
   public getPlayerCardReference(player: string, cardIndex: number): Card {
