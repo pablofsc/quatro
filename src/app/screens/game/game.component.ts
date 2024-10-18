@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { GameService } from '../../services/game.service';
+import { LocalGameService } from '../../services/game-local.service';
 import { randomNumber } from 'src/utils';
 import { Card } from 'src/app/services/deck.service';
 import { AiService } from 'src/app/services/ai.service';
@@ -12,7 +12,7 @@ import { ScreensService } from 'src/app/services/screens.service';
 })
 export class GameComponent {
   constructor(
-    private readonly game: GameService,
+    private readonly localGame: LocalGameService,
     private readonly ai: AiService,
     private readonly screens: ScreensService
   ) {
@@ -24,7 +24,7 @@ export class GameComponent {
   public humanId = 'player1'; // TODO: Make these dynamic
   public computerId = 'player2';
 
-  public state = this.game.state;
+  public state = this.localGame.state;
   public playedStackRotation: number[] = [0];
   public playedStackPosition: { x: number, y: number; }[] = [{ x: 0, y: 0 }];
   public wildCardSelected?: Card;
@@ -34,7 +34,7 @@ export class GameComponent {
   public playableCards: number[] = [];
 
   private async start() {
-    await this.game.startGame(2);
+    await this.localGame.startGame(2);
     await this.next();
 
     this.gameReady = true;
@@ -44,10 +44,10 @@ export class GameComponent {
     this.resetPlayableCards();
     this.humanCanSkip = false;
 
-    if (this.game.state.winner !== null) {
+    if (this.localGame.state.winner !== null) {
       await new Promise(resolve => setTimeout(resolve, 1000));
 
-      if (this.game.state.winner === this.humanId) {
+      if (this.localGame.state.winner === this.humanId) {
         console.log('You win!');
         alert('You win!');
       }
@@ -61,9 +61,9 @@ export class GameComponent {
       return;
     }
 
-    if (this.game.state.currentTurn.player === this.computerId) {
+    if (this.localGame.state.currentTurn.player === this.computerId) {
       this.ai.play(this.computerId, (pl, ci, wc) => this.play(pl, ci, wc));
-      await this.game.state.currentTurn.playedPromise;
+      await this.localGame.state.currentTurn.playedPromise;
 
       this.next();
     }
@@ -80,7 +80,7 @@ export class GameComponent {
   }
 
   public play(player: string, cardIndex: number, wildCardColor?: string) {
-    const nextPlayer = this.game.playCard(player, cardIndex, wildCardColor); // TODO: Make this dynamic
+    const nextPlayer = this.localGame.playCard(player, cardIndex, wildCardColor); // TODO: Make this dynamic
 
     const randomAngle = randomNumber(-45, 45);
     this.playedStackRotation.push(randomAngle);
@@ -91,7 +91,7 @@ export class GameComponent {
     };
     this.playedStackPosition.push(randomOffset);
 
-    if (this.playedStackRotation.length != this.game.state.playedStack.length) {
+    if (this.playedStackRotation.length != this.localGame.state.playedStack.length) {
       throw new Error('Rotation and played stack length mismatch');
     }
 
@@ -115,8 +115,8 @@ export class GameComponent {
   public async clickedCard(cardIndex: number) {
     let selectedColor: string | undefined;
 
-    if (this.game.isWildCard(this.humanId, cardIndex)) {
-      this.wildCardSelected = this.game.getPlayerCardReference(this.humanId, cardIndex);
+    if (this.localGame.isWildCard(this.humanId, cardIndex)) {
+      this.wildCardSelected = this.localGame.getPlayerCardReference(this.humanId, cardIndex);
 
       selectedColor = await new Promise<string>((resolve) => {
         this.wildCardColorPromiseResolver = resolve;
@@ -127,7 +127,7 @@ export class GameComponent {
       this.next();
     }
 
-    if (this.game.state.currentTurn.player === this.humanId) {
+    if (this.localGame.state.currentTurn.player === this.humanId) {
       this.play(this.humanId, cardIndex, selectedColor); // TODO: Make this dynamic
 
       this.next();
@@ -135,11 +135,11 @@ export class GameComponent {
   }
 
   public clickedDraw() {
-    if (this.game.state.currentTurn.player !== this.humanId || this.wildCardSelected) {
+    if (this.localGame.state.currentTurn.player !== this.humanId || this.wildCardSelected) {
       return;
     }
 
-    this.game.drawCard(this.humanId); // TODO: Make this dynamic
+    this.localGame.drawCard(this.humanId); // TODO: Make this dynamic
 
     this.humanCanSkip = true;
 
@@ -148,15 +148,15 @@ export class GameComponent {
   }
 
   public clickedSkip() {
-    if (this.game.state.currentTurn.player === this.humanId) {
-      this.game.skipTurn(this.humanId); // TODO: Make this dynamic
+    if (this.localGame.state.currentTurn.player === this.humanId) {
+      this.localGame.skipTurn(this.humanId); // TODO: Make this dynamic
     }
 
     this.next();
   }
 
   public updatePlayableCards() {
-    this.playableCards = this.game.getPlayableCards(this.humanId); // TODO: Make this dynamic
+    this.playableCards = this.localGame.getPlayableCards(this.humanId); // TODO: Make this dynamic
   }
 
   public resetPlayableCards() {

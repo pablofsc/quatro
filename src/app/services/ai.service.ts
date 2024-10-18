@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { GameService } from './game.service';
+import { LocalGameService } from './game-local.service';
 import { printCard } from 'src/utils';
 
 @Injectable({
@@ -7,7 +7,7 @@ import { printCard } from 'src/utils';
 })
 export class AiService {
   constructor(
-    private readonly game: GameService
+    private readonly game: LocalGameService
   ) {}
 
   private thinkingTime = 1000;
