@@ -8,7 +8,7 @@ export interface Colors {
   [key: string]: string;
 }
 
-interface DeckInfo {
+export interface DeckInfo {
   colors: Colors;
   types: CardType[];
   playerHandSize: number;
@@ -26,32 +26,13 @@ interface CardType {
 
 export class DeckClass {
   constructor(
-    private readonly deckPath: string
+    private readonly readDeck: () => Promise<DeckInfo>,
   ) {}
 
   public deckInfo: DeckInfo | null = null;
 
   private async getDeckInfo(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-
-      xhr.open('GET', this.deckPath, true);
-
-      xhr.onreadystatechange = () => {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-          const jsonResponse = JSON.parse(xhr.responseText);
-
-          this.deckInfo = jsonResponse as DeckInfo;
-
-          resolve();
-        }
-        else if (xhr.readyState === 4 && xhr.status !== 200) {
-          reject('Failed to load JSON file');
-        }
-      };
-
-      xhr.send();
-    });
+    this.deckInfo = await this.readDeck();
   }
 
   private async getDeck(): Promise<Card[] | null> {
