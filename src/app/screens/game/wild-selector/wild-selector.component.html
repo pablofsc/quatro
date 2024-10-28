@@ -1,14 +1,16 @@
-<div class="pseudo-hand">
-  <div class="back-button-container">
-    <button class="back-button" (click)="clickedBack()">BACK</button>
-  </div>
+<div class="pseudo-hand-container">
+ <div class="pseudo-hand">
+    <div class="back-button-container">
+      <button class="back-button" (click)="clickedBack()">BACK</button>
+    </div>
 
-  <div *ngFor="let card of potentialWildCards, let i = index">
-    <game-card
-      [input]="card"
-      [isFaceUp]="true"
-      (click)="cardClicked(i)"
-      [playable]="true">
-    </game-card>
+    <div *ngFor="let card of potentialWildCards, let i = index">
+      <game-card
+        [input]="card"
+        [isFaceUp]="true"
+        (click)="cardClicked(i)"
+        [playable]="true">
+      </game-card>
+    </div>
   </div>
 </div>
