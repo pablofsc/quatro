@@ -28,6 +28,14 @@ export class CardComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.input && this.input.type) {
+      if (!this.rotation) {
+        this.rotation = 0;
+      }
+
+      if (!this.position) {
+        this.position = { x: 0, y: 0 };
+      }
+
       this.display = {
         symbol: this.input.type.text || this.input.type.name, // TODO: Fix type
         color: this.input.color ? this.deckService.deckInfo?.colors[this.input.color] || 'black' : 'black', // TODO: Improve this
