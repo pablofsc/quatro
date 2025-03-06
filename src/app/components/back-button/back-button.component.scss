@@ -12,4 +12,10 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -1px 0px inset;
+  transition: box-shadow 0.3s ease; /* Add transition for smooth animation */
+}
+
+.back-button:hover {
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -1px 0px inset, inset 0 0 0 2px black;;
 }
