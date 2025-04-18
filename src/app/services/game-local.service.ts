@@ -14,4 +14,14 @@ export class LocalGameService extends GameClass {
   ) {
     super(deckService);
   }
+
+  protected override async drawCardsForPlayer(player: string, amount: number) { // TODO: not ideal to have delay stuff here
+    const delayFunction = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
+    for (let i = 0; i < amount; i++) {
+      this.drawCard(player, true);
+
+      await delayFunction(250);
+    }
+  }
 }

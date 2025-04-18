@@ -1,2 +1,30 @@
-<app-menu class="fade-in" *ngIf="screens.current === 'menu'" (userSelection)="changeState($event)"> </app-menu>
-<app-game *ngIf="screens.current === 'game'"> </app-game>
+<app-background>
+</app-background>
+
+<app-menu
+  class="fade-in-fast"
+  *ngIf="screens.current === 'menu'"
+  (screenSelection)="changeState($event)"
+>
+</app-menu>
+
+<app-game
+  class="fade-in"
+  *ngIf="screens.current === 'local_game'"
+  opponentType="AI"
+>
+</app-game>
+
+<app-game
+  class="fade-in"
+  *ngIf="screens.current === 'online_game'"
+  opponentType="ONLINE"
+  >
+</app-game>
+
+<app-multiplayer
+  class="fade-in-fast"
+  *ngIf="screens.current === 'online_setup'"
+  (screenSelection)="changeState($event)"
+>
+</app-multiplayer>

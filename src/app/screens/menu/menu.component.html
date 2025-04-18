@@ -1,7 +1,3 @@
-<app-background>
-
-</app-background>
-
 <div class="menu">
   <div class="zooming title-div">
     <div class="tilting">
@@ -11,7 +7,11 @@
     </div>
   </div>
 
-  <div class="option" (click)="startGame()">
-    PLAY
+  <div class="option" (click)="startLocalGame()">
+    PLAY LOCAL
+  </div>
+
+  <div class="option" (click)="openMultiplayerPage()">
+    PLAY ONLINE
   </div>
 </div>

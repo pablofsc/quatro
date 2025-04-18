@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { GameComponent } from './game.component';
 import { CardComponent } from './card/card.component';
 import { BackButtonModule } from 'src/app/components/back-button/back-button.module';
@@ -17,7 +19,8 @@ import { WildSelectorComponent } from './wild-selector/wild-selector.component';
   ],
   imports: [
     CommonModule,
-    BackButtonModule
+    BackButtonModule,
+    BrowserAnimationsModule
   ],
   exports: [
     GameComponent

@@ -1,36 +1,44 @@
+<app-back-button [before]="quit.bind(this)"> </app-back-button>
+
 <div *ngIf="gameReady === false"></div>
 
 <div *ngIf="gameReady === true" class="table fade-in">
-  <app-back-button>
-
-  </app-back-button>
-
-  <div class="hand">
-    <div *ngFor="let card of state.hands['player2']">
-      <game-card [input]="card" [isFaceUp]="false"></game-card>
-    </div>
+  <div class="message-indicator transitions" [class.hiddenUpwards]="!showMessage">
+    {{ lastMessage }}
   </div>
 
-  <div class="card-count-indicator player2-card-count">
-    {{ state.hands['player2'].length }}
+  <div class="floating-indicator opponent-card-count">
+    {{ game.state.hands[opponentId].length }}
+  </div>
+
+  <div class="floating-indicator user-card-count">
+    {{ game.state.hands[userId].length }}
+  </div>
+
+  <div class="handOpponent transitions" [class.opponentWaiting]="game.state.currentTurn.player !== opponentId">
+    <div class="hand">
+      <div *ngFor="let card of game.state.hands[opponentId]">
+        <game-card [input]="card" [isFaceUp]="false"></game-card>
+      </div>
+    </div>
   </div>
 
   <div class="stacksContainer">
     <div class="stack" style="left: -75px;">
-      <div *ngFor="let card of state.drawStack.slice(0, 10)">
+      <div *ngFor="let card of game.state.drawStack.slice(0, 10)">
         <game-card
-          [class.drawStackCard]="state.currentTurn.player === humanId && !wildCardSelected"
+          [class.drawStackCard]="game.state.currentTurn.player === userId && !wildCardSelected"
           class="stackedCard"
           [input]="card"
           [isFaceUp]="false"
-          [playable]="state.currentTurn.player === humanId && !wildCardSelected"
+          [playable]="game.state.currentTurn.player === userId && !wildCardSelected"
           (click)="clickedDraw()">
         </game-card>
       </div>
     </div>
 
     <div class="stack">
-      <div *ngFor="let card of state.playedStack, let i = index">
+      <div *ngFor="let card of game.state.playedStack, let i = index">
         <game-card
           class="stackedCard"
           [input]="card"
@@ -42,24 +50,22 @@
     </div>
 
     <div class="action skip-button-container" style="left: +75px;">
-      <button class="skip-button" (click)="clickedSkip()" [disabled]="!humanCanSkip || wildCardSelected">SKIP</button>
+      <button class="skip-button" (click)="clickedSkip()" [class.skipButtonDisabled]="!humanCanSkip || wildCardSelected">SKIP</button>
     </div>
   </div>
 
-  <div class="card-count-indicator player1-card-count">
-    {{ state.hands['player1'].length }}
-  </div>
-
-  <div *ngIf="wildCardSelected" class="scrollable-x" appHorizontalScroll>
-    <div class="hand">
-      <game-wild-selector [originalWildCard]="wildCardSelected" (selectedColor)="selectedWildColor($event)"></game-wild-selector>
+  <div class="handPlayer transitions" [class.userWaiting]="game.state.currentTurn.player !== userId">
+    <div *ngIf="wildCardSelected" @slide class="scrollable-x" appHorizontalScroll >
+      <div class="hand">
+        <game-wild-selector [originalWildCard]="wildCardSelected" (selectedColor)="selectedWildColor($event)"></game-wild-selector>
+      </div>
     </div>
-  </div>
 
-  <div [class.retracted]="wildCardSelected" class="scrollable-x" appHorizontalScroll>
-    <div class="hand" [ngClass]="{'black-and-white': state.currentTurn.player !== humanId}">
-      <div *ngFor="let card of state.hands['player1'], let i = index">
-        <game-card [input]="card" [isFaceUp]="true" (click)="clickedCard(i)" [playable]="playableCards.includes(i)"></game-card>
+    <div [class.retracted]="wildCardSelected" class="scrollable-x transitions" appHorizontalScroll>
+      <div class="hand">
+        <div *ngFor="let card of game.state.hands[userId], let i = index">
+          <game-card [input]="card" [isFaceUp]="true" (click)="clickedCard(i)" [playable]="game.state.currentTurn.player === userId && playableCards.includes(i)"></game-card>
+        </div>
       </div>
     </div>
   </div>

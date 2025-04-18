@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
 import { ScreensService } from 'src/app/services/screens.service';
 
 @Component({
@@ -11,7 +12,12 @@ export class BackButtonComponent {
     private readonly screens: ScreensService
   ) {}
 
+  @Input() before: () => void = () => {};
+  @Input() after: () => void = () => {};
+
   goBack() {
+    this.before();
     this.screens.current = 'menu';
+    this.after();
   }
 }

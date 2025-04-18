@@ -31,8 +31,16 @@ export type PlayerCode = string;
 
 export class GameClass {
   constructor(
-    private readonly deck: DeckClass
+    protected readonly deck: DeckClass
   ) {}
+
+  public getPlayerId() {
+    return 'player1';
+  }
+
+  public getOpponentId() {
+    return 'player2';
+  }
 
   public state: GameState = {
     drawStack: [],
@@ -81,7 +89,7 @@ export class GameClass {
     this.changeCurrentPlayer("player1");
   }
 
-  public playCard(player: string, cardIndex: number, color?: string): string | undefined { // Should ALWAYS throw error if nothing is played
+  public async playCard(player: string, cardIndex: number, color?: string): Promise<string | undefined> { // Should ALWAYS throw error if nothing is played
     if (this.state.currentTurn.player !== player) {
       throw new Error(`Not ${player}'s turn`);
     }
@@ -160,7 +168,7 @@ export class GameClass {
     const possibilities: number[] = [];
     const hand = this.state.hands[player];
 
-    for (let i = 0; i < hand.length; i++) {
+    for (let i = 0; i < hand?.length; i++) {
       if (this.canPlayCard(hand[i])) {
         possibilities.push(i);
       }
@@ -169,7 +177,7 @@ export class GameClass {
     return possibilities;
   }
 
-  private canPlayCard(card: Card): boolean {
+  protected canPlayCard(card: Card): boolean {
     const topCard = this.state.playedStack[this.state.playedStack.length - 1];
 
     if (!topCard) {
@@ -183,7 +191,7 @@ export class GameClass {
     );
   }
 
-  private getNextPlayer(skipOne: boolean = false): string {
+  protected getNextPlayer(skipOne: boolean = false): string {
     const currentPlayer = parseInt(this.state.currentTurn.player?.replace("player", "") || "0");
 
     if (currentPlayer === 0) {
@@ -204,7 +212,7 @@ export class GameClass {
     return `player${nextPlayer}`;
   }
 
-  private getFromDrawStack(firstCard: boolean = false): Card {
+  protected getFromDrawStack(firstCard: boolean = false): Card {
     if (!firstCard) {
       const card = this.state.drawStack.pop();
 
@@ -228,13 +236,13 @@ export class GameClass {
     }
   }
 
-  private handlePossibleAction(card: Card, player: string, delay: boolean = true): PlayerCode {
+  protected handlePossibleAction(card: Card, player: string, delay: boolean = true): PlayerCode {
     const nextPlayer = this.getNextPlayer();
 
     switch (card.type.name) {
       case "DRAW2":
         // console.log("DRAW2: Drawing two cards for", nextPlayer);
-        this.drawCardsForPlayer(nextPlayer, 2, 250);
+        this.drawCardsForPlayer(nextPlayer, 2);
 
         return nextPlayer;
 
@@ -256,7 +264,7 @@ export class GameClass {
 
       case "WILD_DRAW4":
         // console.log("WILD_DRAW4: Wild draw 4 card, drawing four cards for next player:", nextPlayer);
-        this.drawCardsForPlayer(nextPlayer, 4, 250);
+        this.drawCardsForPlayer(nextPlayer, 4);
 
         return nextPlayer;
 
@@ -265,24 +273,13 @@ export class GameClass {
     }
   }
 
-  private async drawCardsForPlayer(player: string, amount: number, delay: number | null) { // TODO: not ideal to have delay stuff here
-    const delayFunction = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
-
-    if (delay != null) {
-      for (let i = 0; i < amount; i++) {
-        this.drawCard(player, true);
-
-        await delayFunction(delay);
-      }
-    }
-    else {
-      for (let i = 0; i < amount; i++) {
-        this.drawCard(player, true);
-      }
+  protected async drawCardsForPlayer(player: string, amount: number) { // TODO: not ideal to have delay stuff here
+    for (let i = 0; i < amount; i++) {
+      this.drawCard(player, true);
     }
   }
 
-  private changeCurrentPlayer(nextPlayer: string): void {
+  protected changeCurrentPlayer(nextPlayer: string): void {
     if (this.state.currentTurn.playedResolver) {
       this.state.currentTurn.playedResolver();
       // console.warn("Resolver called");
@@ -310,7 +307,7 @@ export class GameClass {
     };
   }
 
-  private resetState() {
+  protected resetState() {
     this.state.drawStack = [];
     this.state.playedStack = [];
     this.state.hands = {};
@@ -326,7 +323,7 @@ export class GameClass {
     this.state.winner = null;
   }
 
-  private wrapToInterval(x: number, a: number, b: number) {
+  protected wrapToInterval(x: number, a: number, b: number) {
     if (a >= b) {
       throw new Error("a must be less than b");
     }
@@ -334,5 +331,9 @@ export class GameClass {
     const range = b - a + 1;
 
     return ((x - a) % range + range) % range + a;
+  }
+
+  public finishGame() {
+    this.resetState();
   }
 }

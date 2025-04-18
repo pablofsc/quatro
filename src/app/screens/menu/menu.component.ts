@@ -1,4 +1,5 @@
 import { Component, Output, EventEmitter } from '@angular/core';
+
 import { Screen } from 'src/app/services/screens.service';
 
 @Component({
@@ -9,9 +10,13 @@ import { Screen } from 'src/app/services/screens.service';
 export class MenuComponent {
   constructor() {}
 
-  @Output() userSelection = new EventEmitter<Screen>();
+  @Output() screenSelection = new EventEmitter<Screen>();
 
-  startGame() {
-    this.userSelection.emit('game');
+  startLocalGame() {
+    this.screenSelection.emit('local_game');
+  }
+
+  openMultiplayerPage() {
+    this.screenSelection.emit('online_setup');
   }
 }

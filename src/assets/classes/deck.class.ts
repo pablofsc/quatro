@@ -31,12 +31,12 @@ export class DeckClass {
 
   public deckInfo: DeckInfo | null = null;
 
-  private async getDeckInfo(): Promise<void> {
+  public async loadDeckInfo(): Promise<void> {
     this.deckInfo = await this.readDeck();
   }
 
   private async getDeck(): Promise<Card[] | null> {
-    await this.getDeckInfo();
+    await this.loadDeckInfo();
 
     if (!this.deckInfo) {
       console.error('DeckInfo is falsy:', this.deckInfo);

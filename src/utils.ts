@@ -4,13 +4,9 @@ export async function readDeck(): Promise<DeckInfo> {
   let deckPath: string;
 
   if (window.location.hostname.includes('github.io')) { // TODO: improve this
-    console.log('Running on GitHub Pages');
-
     deckPath = '/quatro/assets/deck.json';
   }
   else {
-    console.log('Running locally');
-
     deckPath = './assets/deck.json';
   }
 
@@ -51,3 +47,51 @@ export function printCard(card: Card | undefined): string {
 
   return `${card.color} ${card.type.name}`;
 }
+
+export function deepCopyInto(target: any, source: any) {
+  for (const key in source) {
+    if (source.hasOwnProperty(key)) {
+      const sourceValue = source[key];
+
+      if (Array.isArray(sourceValue)) {
+        // If target already has an array, clear it to update in place.
+        if (target.hasOwnProperty(key) && Array.isArray(target[key])) {
+          target[key].length = 0; // Clear the array while keeping the pointer.
+        }
+        else {
+          target[key] = [];
+        }
+
+        // Copy each item from the source array.
+        for (const item of sourceValue) {
+          if (item && typeof item === 'object') {
+            // Create an empty object or array based on the item type.
+            const newItem = Array.isArray(item) ? [] : {};
+            deepCopyInto(newItem, item);
+            target[key].push(newItem);
+          }
+          else {
+            target[key].push(item);
+          }
+        }
+      }
+      else if (sourceValue && typeof sourceValue === 'object') {
+        // For objects, if target already has an object, update it recursively.
+        if (target.hasOwnProperty(key) && target[key] && typeof target[key] === 'object' && !Array.isArray(target[key])) {
+          deepCopyInto(target[key], sourceValue);
+        }
+        else {
+          target[key] = {};
+          deepCopyInto(target[key], sourceValue);
+        }
+      }
+      else {
+        // For primitives (or functions, null, etc.), assign directly.
+        target[key] = sourceValue;
+      }
+    }
+  }
+
+  return target;
+}
+

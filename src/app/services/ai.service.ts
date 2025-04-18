@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+
 import { LocalGameService } from './game-local.service';
 import { printCard } from 'src/utils';
 
@@ -16,7 +17,7 @@ export class AiService {
     return Math.floor(Math.random() * array.length);
   }
 
-  public async play(computerId: string, play: (player: string, cardIndex: number, wildCardColor?: string) => string | undefined) { // TODO: Improve AI
+  public async play(computerId: string, play: (player: string, cardIndex: number, wildCardColor?: string) => Promise<string | undefined>) { // TODO: Improve AI
     const playableCards = this.game.getPlayableCards(computerId);
 
     const randomIndex = this.getRandomIndex(playableCards);
@@ -39,7 +40,7 @@ export class AiService {
         if (playableCards.length === 1) {
           // console.log("AI has drawn a card and can play it");
 
-          this.playCard(computerId, playableCards[0], play)
+          this.playCard(computerId, playableCards[0], play);
         }
         else {
           // console.log("AI has drawn a card but can't play it");
@@ -50,7 +51,7 @@ export class AiService {
     }
   }
 
-  private playCard(computerId: string, pickedCardIndex: number, play: (player: string, cardIndex: number, wildCardColor?: string) => string | undefined) {
+  private playCard(computerId: string, pickedCardIndex: number, play: (player: string, cardIndex: number, wildCardColor?: string) => Promise<string | undefined>) {
     if (this.game.state.hands[computerId][pickedCardIndex].type.nonWild) {
       // console.log("AI is playing a regular card");
 
@@ -63,11 +64,11 @@ export class AiService {
     }
   }
 
-  private async playRegularCard(computerId: string, pickedCardIndex: number, play: (player: string, cardIndex: number, wildCardColor?: string) => string | undefined) {
+  private async playRegularCard(computerId: string, pickedCardIndex: number, play: (player: string, cardIndex: number, wildCardColor?: string) => Promise<string | undefined>) {
     setTimeout(() => { play(computerId, pickedCardIndex); }, this.thinkingTime);
   }
 
-  private async playWildCard(computerId: string, pickedCardIndex: number, play: (player: string, cardIndex: number, wildCardColor?: string) => string | undefined) {
+  private async playWildCard(computerId: string, pickedCardIndex: number, play: (player: string, cardIndex: number, wildCardColor?: string) => Promise<string | undefined>) {
     const colors = ['red', 'green', 'blue', 'yellow']; // TODO: get from game service or wherever it's properly defined (deck service?)
     const index = this.getRandomIndex(colors);
 

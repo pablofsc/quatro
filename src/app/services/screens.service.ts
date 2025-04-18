@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-export type Screen = 'menu' | 'game';
+export type Screen = 'menu' | 'local_game' | 'online_game' | 'online_setup';
 
 @Injectable({
   providedIn: 'root'
